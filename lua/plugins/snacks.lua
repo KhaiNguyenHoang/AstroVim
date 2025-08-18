@@ -101,7 +101,13 @@ return {
   opts = {
     dashboard = {
       sections = {
-        { section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, indent = 8 },
+        {
+          section = "terminal",
+          cmd = "fortune -s codememe | cowsay",
+          hl = "header",
+          padding = 1,
+          indent = 8,
+        },
         { section = "keys", gap = 1, padding = 3 },
         { section = "startup" },
       },

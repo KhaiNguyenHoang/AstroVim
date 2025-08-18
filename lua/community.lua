@@ -1,4 +1,4 @@
--- AstroCommunity: import any community modules here
+---- AstroCommunity: import any community modules here
 -- We import this file in `lazy_setup.lua` before the `plugins/` folder.
 -- This guarantees that the specs are processed before any user plugins.
 
@@ -7,6 +7,7 @@ return {
   "AstroNvim/astrocommunity",
   -- { import = "astrocommunity.editing-support.dial-nvim" },
   -- { import = "astrocommunity.motion.marks-nvim" },
+  { import = "astrocommunity.snippet.mini-snippets" },
   { import = "astrocommunity.syntax.vim-easy-align" },
   { import = "astrocommunity.comment.ts-comments-nvim" },
   -- { import = "astrocommunity.completion.avante-nvim" },
@@ -26,7 +27,7 @@ return {
   { import = "astrocommunity.editing-support.undotree" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.editing-support.vector-code-nvim" },
-  { import = "astrocommunity.editing-support.codecompanion-nvim" },
+  -- { import = "astrocommunity.editing-support.codecompanion-nvim" },
   { import = "astrocommunity.editing-support.mcphub-nvim" },
   { import = "astrocommunity.git.octo-nvim" },
   -- { import = "astrocommunity.git.diffview-nvim" },
@@ -50,7 +51,6 @@ return {
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.nginx" },
-  { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.python" },
@@ -76,5 +76,14 @@ return {
   { import = "astrocommunity.completion.avante-nvim" },
   { import = "astrocommunity.search.nvim-spectre" },
   { import = "astrocommunity.editing-support.ultimate-autopair-nvim" },
-  -- { import = "astrocommunity.utility.noice-nvim" },
+  { import = "astrocommunity.utility.noice-nvim" },
+
+  -- Bars & Lines (đúng category)
+  { import = "astrocommunity.bars-and-lines.lualine-nvim" },
+  { import = "astrocommunity.indent.indent-blankline-nvim" },
+  -- Project
+  { import = "astrocommunity.project.project-nvim" },
+
+  -- Note-taking
+  { import = "astrocommunity.note-taking.obsidian-nvim" },
 }

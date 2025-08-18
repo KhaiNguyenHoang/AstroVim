@@ -1,8 +1,14 @@
----@type LazySpec
 return {
   "Davidyz/VectorCode",
-  optional = true,
-  cli_cmds = {
-    vectorcode = os.getenv "HOME" .. "/.local/bin/vectorcode",
+  version = "*",
+  build = "pipx upgrade vectorcode",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  opts = {
+    n_query = 1,
+    notify = true,
+    timeout_ms = 5000,
+    exclude_this = true,
   },
+  cond = function() return vim.fn.executable("vectorcode") == 1 end,
 }
+
