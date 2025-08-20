@@ -37,11 +37,13 @@ return {
       },
     },
   },
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   optional = true,
-  --   opts = {
-  --     ensure_installed = { "firefox-debug-adapter" },
-  --   },
-  -- },
+  {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = {
+      registries = {
+        "github:Crashdummyy/mason-registry",
+      },
+    },
+  },
 }
