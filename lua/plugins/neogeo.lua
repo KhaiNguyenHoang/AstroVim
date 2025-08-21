@@ -2,6 +2,7 @@ return {
   "danymat/neogen",
   optional = true,
   opts = {
+    snippet_engine = "mini",
     languages = {
       lua = { template = { annotation_convention = "emmylua" } },
       typescript = { template = { annotation_convention = "tsdoc" } },

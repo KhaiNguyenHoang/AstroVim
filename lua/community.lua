@@ -77,13 +77,9 @@ return {
   { import = "astrocommunity.search.nvim-spectre" },
   { import = "astrocommunity.editing-support.ultimate-autopair-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
-
-  -- Bars & Lines (đúng category)
   { import = "astrocommunity.bars-and-lines.lualine-nvim" },
   { import = "astrocommunity.indent.indent-blankline-nvim" },
-  -- Project
   { import = "astrocommunity.project.project-nvim" },
-
-  -- Note-taking
+  { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
 }

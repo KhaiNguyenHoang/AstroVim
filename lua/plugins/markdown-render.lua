@@ -5,7 +5,7 @@ return {
   opts = {
     max_file_size = 2.0,
     preset = "obsidian",
-    file_types = { "markdown", "Avante" },
+    file_types = { "markdown", "Avante", "codecompanion" },
     anti_conceal = {
       -- This enables hiding any added text on the line the cursor is on.
       enabled = true,
@@ -29,11 +29,11 @@ return {
     },
     completions = {
       -- Settings for blink.cmp completions source
-      blink = { enabled = true },
+      blink = { enabled = false },
       -- Settings for coq_nvim completions source
       coq = { enabled = false },
       -- Settings for in-process language server completions
-      lsp = { enabled = false },
+      lsp = { enabled = true },
     },
   },
 }

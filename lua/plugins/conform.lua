@@ -5,7 +5,7 @@ return {
   opts = {
     formatters_by_ft = {
       toml = { "taplo" },
-      md = { "markdown-toc" },
+      markdown = { "markdown-toc", "prettierd", stop_after_first = false },
       sh = { "shfmt" },
     },
     formatters = {
