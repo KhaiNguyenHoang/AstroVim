@@ -1,18 +1,14 @@
 local is_windows = jit.os:find "Windows"
----@type LazySpec
 return {
   "gbprod/yanky.nvim",
-  enabled = false,
-  event = "User AstroFile",
   dependencies = {
     { "kkharji/sqlite.lua", enabled = not is_windows },
-    { "folke/snacks.nvim" },
     {
       "AstroNvim/astrocore",
       opts = {
         mappings = {
           n = {
-            ["<Leader>fy"] = { function() require("snacks").picker.yanky() end, desc = "Find yanks" },
+            ["<Leader>fy"] = { "<Cmd>YankyRingHistory<CR>", desc = "Find yanks" },
             ["y"] = { "<Plug>(YankyYank)", desc = "Yank text" },
             ["p"] = { "<Plug>(YankyPutAfter)", desc = "Put yanked text after cursor" },
             ["P"] = { "<Plug>(YankyPutBefore)", desc = "Put yanked text before cursor" },
@@ -42,11 +38,41 @@ return {
       },
     },
   },
-  opts = {
-    highlight = { timer = 200 },
-    ring = { storage = is_windows and "shada" or "sqlite" },
-    system_clipboard = {
-      sync_with_ring = false,
+  opts = function(_, opts)
+    local astrocore = require "astrocore"
+    opts = astrocore.extend_tbl(opts, {
+      highlight = { timer = 200 },
+      ring = { storage = is_windows and "shada" or "sqlite" },
+    })
+    if require("astrocore").is_available "telescope.nvim" then
+      local mapping = require "yanky.telescope.mapping"
+      local mappings = mapping.get_defaults()
+      mappings.i["<c-p>"] = nil
+      opts.picker = astrocore.extend_tbl(opts.picker, {
+        telescope = {
+          use_default_mappings = false,
+          mappings = mappings,
+        },
+      })
+    end
+    return opts
+  end,
+  specs = {
+    {
+      "nvim-telescope/telescope.nvim",
+      optional = true,
+      specs = {
+        {
+          "AstroNvim/astrocore",
+          opts = {
+            mappings = {
+              n = {
+                ["<Leader>fy"] = { "<Cmd>Telescope yank_history<CR>", desc = "Find yanks" },
+              },
+            },
+          },
+        },
+      },
     },
   },
 }
