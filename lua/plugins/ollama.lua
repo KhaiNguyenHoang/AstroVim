@@ -22,6 +22,7 @@ return {
         "codellama:7b",
         "qwen2.5-coder:7b",
         "starcoder2:3b",
+        "qwen2.5-coder:14b",
       }
 
       -- Simple model selector using vim.ui.select
