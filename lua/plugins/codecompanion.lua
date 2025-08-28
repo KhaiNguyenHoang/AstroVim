@@ -6,6 +6,8 @@ return {
   optional = true,
   dependencies = {
     "ravitemer/codecompanion-history.nvim",
+    -- Add mcphub.nvim as a dependency
+    { "ravitemer/mcphub.nvim", optional = true },
   },
   specs = {
     {
@@ -79,7 +81,7 @@ return {
               default_num = 10,
             },
             -- Enable notifications for indexing progress
-            notify = false,
+            notify = true,
             -- Index all existing memories on startup
             -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
             index_on_startup = true,
@@ -89,11 +91,70 @@ return {
     },
     language = "English",
     adapters = {
+      nvidia = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          formatted_name = "Nvidia",
+          env = {
+            url = "https://integrate.api.nvidia.com",
+            api_key = "NVIDIA_API_KEY",
+            chat_url = "/v1/chat/completions",
+            models_endpoint = "/v1/models",
+          },
+          schema = {
+            model = {
+              default = "openai/gpt-oss-120b",
+            },
+
+            temperature = {
+              order = 2,
+              mapping = "parameters",
+              type = "number",
+              optional = true,
+              default = 0.8,
+              desc = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+              validate = function(n) return n >= 0 and n <= 2, "Must be between 0 and 2" end,
+            },
+            max_completion_tokens = {
+              order = 3,
+              mapping = "parameters",
+              type = "integer",
+              optional = true,
+              default = nil,
+              desc = "An upper bound for the number of tokens that can be generated for a completion.",
+              validate = function(n) return n > 0, "Must be greater than 0" end,
+            },
+            stop = {
+              order = 4,
+              mapping = "parameters",
+              type = "string",
+              optional = true,
+              default = nil,
+              desc = "Sets the stop sequences to use. When this pattern is encountered the LLM will stop generating text and return. Multiple stop patterns may be set by specifying multiple separate stop parameters in a modelfile.",
+              validate = function(s) return s:len() > 0, "Cannot be an empty string" end,
+            },
+            logit_bias = {
+              order = 5,
+              mapping = "parameters",
+              type = "map",
+              optional = true,
+              default = nil,
+              desc = "Modify the likelihood of specified tokens appearing in the completion. Maps tokens (specified by their token ID) to an associated bias value from -100 to 100. Use https://platform.openai.com/tokenizer to find token IDs.",
+              subtype_key = {
+                type = "integer",
+              },
+              subtype = {
+                type = "integer",
+                validate = function(n) return n >= -100 and n <= 100, "Must be between -100 and 100" end,
+              },
+            },
+          },
+        })
+      end,
       gemini = function()
         return require("codecompanion.adapters").extend("gemini", {
           schema = {
             model = {
-              default = "gemini-2.5-pro",
+              default = "gemini-2.5-flash",
             },
           },
         })
@@ -101,13 +162,13 @@ return {
     },
     strategies = {
       chat = {
-        adapter = "gemini",
+        adapter = "nvidia",
       },
       inline = {
-        adapter = "gemini",
+        adapter = "nvidia",
       },
       cmd = {
-        adapter = "gemini",
+        adapter = "nvidia",
       },
     },
   },
