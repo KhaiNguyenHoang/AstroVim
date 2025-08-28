@@ -1,25 +1,33 @@
 return {
   {
     "Hoffs/omnisharp-extended-lsp.nvim",
-  },
-  lazy = true,
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        omnisharp = {
-          handlers = {
-            ["textDocument/definition"] = function(...) return require("omnisharp_extended").definition_handler(...) end,
-            ["textDocument/typeDefinition"] = function(...)
-              return require("omnisharp_extended").type_definition_handler(...)
-            end,
-            ["textDocument/references"] = function(...) return require("omnisharp_extended").references_handler(...) end,
-            ["textDocument/implementation"] = function(...)
-              return require("omnisharp_extended").implementation_handler(...)
-            end,
-          },
-        },
-      },
-    },
+    ft = "cs",
+    config = function()
+      local keymap = vim.keymap.set
+
+      -- Goto Definition
+      keymap(
+        "n",
+        "gd",
+        function() require("omnisharp_extended").lsp_definition() end,
+        { desc = "Goto Definition (C#)" }
+      )
+
+      -- References
+      keymap(
+        "n",
+        "gr",
+        function() require("omnisharp_extended").lsp_references() end,
+        { desc = "Goto References (C#)" }
+      )
+
+      -- Implementation / Type Definition
+      keymap(
+        "n",
+        "gi",
+        function() require("omnisharp_extended").lsp_implementation() end,
+        { desc = "Goto Implementation (C#)" }
+      )
+    end,
   },
 }
